@@ -5,7 +5,7 @@ import HomePageWrapper from '@/components/Wrappers/HomePageWrapper.vue'
 
 <template>
   <div>
-    <DashboardHeader headerName="Name" />
+    <DashboardHeader headerName="Planets Oil" />
     <HomePageWrapper />
   </div>
 </template>
