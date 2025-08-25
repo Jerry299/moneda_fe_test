@@ -3,6 +3,8 @@ import { Form } from '@primevue/forms'
 import InputNumber from 'primevue/inputnumber'
 import Select from 'primevue/select'
 import FileUpload from 'primevue/fileupload'
+import { zodResolver } from '@primevue/forms/resolvers/zod'
+import { z } from 'zod'
 import UploadIcon from '../svgs/UploadIcon.vue'
 import { getAwardingCompaniesList } from '@/services/httpServices'
 import { onMounted, ref, defineProps, inject, registerRuntimeCompiler } from 'vue'
@@ -156,12 +158,27 @@ onMounted(async () => {
   awardingCompanies.value = companies
 })
 
+// form validations
+const initialValues = ref({
+  awardingCompany: '',
+})
+
+const selectObjectSchema = z.object({}).refine((val) => val !== null && val !== undefined, {
+  message: 'Please select an option',
+})
+
+const schema = z.object({
+  awardingCompany: selectObjectSchema,
+})
+
+const resolver = ref(zodResolver(schema))
+
 const enableTab: any = inject('enableTab')
 </script>
 <template>
   <div class="shadow p-4 fade-in">
     <Toast />
-    <Form>
+    <Form v-slot="$form" :initialValues>
       <div class="flex gap-2 justify-between mb-8 mt-2">
         <div class="flex flex-col w-[48%]">
           <label class="mb-2 font-medium text-xs">Awarding Company</label>
@@ -170,6 +187,7 @@ const enableTab: any = inject('enableTab')
             :options="awardingCompanies"
             option-label="name"
             @change="(evt) => handleSelect(evt, 'setAwardingCompanyState')"
+            name="awardingCompany"
           />
         </div>
         <div class="flex flex-col w-[48%]">
@@ -179,6 +197,7 @@ const enableTab: any = inject('enableTab')
             :options="numberOfPreviousContracts"
             option-label="name"
             @change="(evt) => handleSelect(evt, 'setNumberOfPreviousContract')"
+            name="numberOfPreviousContracts"
           />
         </div>
       </div>
@@ -193,10 +212,12 @@ const enableTab: any = inject('enableTab')
                 :options="currency"
                 option-label="name"
                 @change="(evt) => handleSelect(evt, 'setCurrency')"
+                name="currency"
             /></span>
             <InputNumber
               :placeholder="'Enter amount'"
               @value-change="(evt) => handleSelect(evt, 'setContractAmount')"
+              name="amount"
             />
           </div>
         </div>
@@ -207,6 +228,7 @@ const enableTab: any = inject('enableTab')
             option-label="name"
             :placeholder="'Select a payment terms type'"
             @change="(evt) => handleSelect(evt, 'setPaymentTerms')"
+            name="paymentTerms"
           />
         </div>
       </div>
@@ -220,6 +242,7 @@ const enableTab: any = inject('enableTab')
               :options="incoterms"
               option-label="name"
               @change="(evt) => handleSelect(evt, 'setIncotermsValue')"
+              name="incoterms"
             />
           </div>
         </div>
@@ -228,6 +251,7 @@ const enableTab: any = inject('enableTab')
           <InputNumber
             :placeholder="'Enter execution time in days'"
             @value-change="(evt) => handleSelect(evt, 'setNumberOfExecutionDays')"
+            name="executionTerms"
           />
         </div>
       </div>
@@ -238,6 +262,7 @@ const enableTab: any = inject('enableTab')
           <InputNumber
             :placeholder="'Enter payment after invoice is issued in days'"
             @value-change="(evt) => handleSelect(evt, 'setPaymentAfterInvoice')"
+            name="daysAfterInvoice"
           />
         </div>
       </div>
