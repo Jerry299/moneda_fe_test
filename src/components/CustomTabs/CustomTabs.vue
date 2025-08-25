@@ -43,7 +43,7 @@ onMounted(() => {
 <template>
   <div class="flex justify-center w-[70%]">
     <Toast />
-    <Tabs :value="currentTabIndex">
+    <Tabs :value="currentTabIndex" :lazy="true">
       <TabList>
         <Tab v-for="tab in tabData" :key="tab.title" :value="tab.value" :disabled="tab.disabled">{{
           tab.title

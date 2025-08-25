@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+import { VueSpinnerIos } from 'vue3-spinners'
 
 type Size = 'small' | 'medium' | 'large' | 'transactions'
 type Variant = 'primary' | 'secondary' | 'danger' | 'orange'
@@ -54,5 +55,6 @@ const buttonClasses = computed(() => {
       <slot name="icon-left" v-if="$slots['icon-left']"></slot>
     </div>
     <slot>{{ text }}</slot>
+    <VueSpinnerIos v-if="loading" />
   </button>
 </template>

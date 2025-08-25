@@ -12,3 +12,8 @@ export interface SupplierProps {
   name: string
   value_usd: string
 }
+
+export interface numberValueProps {
+  name: number
+  value: number
+}
