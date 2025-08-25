@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cc5500;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease forwards;
+}
+.p-tablist-tab-list {
+  height: 72px !important;
+  width: 820px;
+  background-color: #efefef !important;
+  border-radius: 10px 10px 0px 0px !important;
+}
+.p-tab {
+  width: 50% !important;
+}
+.p-tablist-active-bar {
+  background-color: #cc5500 !important;
+}
+.p-tab-active {
+  color: #080808 !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+}
+.p-select,
+.p-inputtext {
+  height: 35px !important;
+  width: 100% !important;
+}
+.p-placeholder,
+input::placeholder {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+.p-fileupload-choose-button {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+.p-button-label {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: #080808;
+}
+.p-select-label {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
