@@ -65,3 +65,8 @@ input::placeholder {
   font-size: 12px !important;
   font-weight: 400 !important;
 }
+.p-inputwrapper-filled .p-select-label {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #080808 !important;
+}

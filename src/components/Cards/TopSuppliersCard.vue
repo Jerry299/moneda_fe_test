@@ -7,13 +7,6 @@ interface CardProps {
   data: SupplierProps[]
 }
 const props = defineProps<CardProps>()
-console.log(props.data, ' data props here ')
-
-// const suppliers = reactive([
-//   { id: 1, itemName: 'Sahara', itemAmount: 100000 },
-//   { id: 2, itemName: 'Halliburton', itemAmount: 60000 },
-//   { id: 3, itemName: 'Baker Hughes', itemAmount: 7000 },
-// ])
 </script>
 
 <template>

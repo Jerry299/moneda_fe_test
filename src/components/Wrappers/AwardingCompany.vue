@@ -13,6 +13,7 @@ import { validateFileType } from '@/utils/validateFileType'
 import { useTransactionData } from '@/stores/transactionData'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
+
 import {
   acceptedFileTypes,
   CURRENCIES,
@@ -103,7 +104,6 @@ const handleFileUpload = (evt: any, actionName: actionTypes) => {
     setPreviousInvoiceFile(file)
   }
   if (actionName === 'setPurchaseOrderFile') {
-    console.log(file)
     setPurchaseOrderFile(file)
   }
   if (actionName === 'setBankStatementFile') {
@@ -185,19 +185,20 @@ function onSubmit(data: any) {
     })
     return
   }
-  //check the uploads
-  //@ts-ignore
-  // if (!purchaseOrderFile.type || !previousInvoiceFile.type || !bankStatementFile.type) {
-  //   toast.add({
-  //     severity: 'error',
-  //     summary: 'Form file empty',
-  //     detail: `You have to upload all required files to continue`,
-  //     life: 3000,
-  //   })
-  //   return
-  // }
+  if (
+    purchaseOrderFile.length === 0 ||
+    previousInvoiceFile.length === 0 ||
+    bankStatementFile.length === 0
+  ) {
+    toast.add({
+      severity: 'error',
+      summary: 'Missing Files',
+      detail: 'Please upload all required files before proceeding.',
+      life: 3000,
+    })
+    return
+  }
 
-  // Form is valid, proceed to next tab
   enableTab('1')
 }
 </script>

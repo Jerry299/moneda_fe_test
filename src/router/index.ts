@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
-import App from '@/App.vue'
 import Transactions from '@/views/Transactions.vue'
 
-//history: createWebHistory(import.meta.env.BASE_URL),
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path: '/',
+      redirect: '/admin/dasboard',
+    },
     {
       name: 'dashboard',
       path: '/admin/dasboard',
