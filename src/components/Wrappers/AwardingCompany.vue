@@ -185,19 +185,6 @@ function onSubmit(data: any) {
     })
     return
   }
-  if (
-    purchaseOrderFile.length === 0 ||
-    previousInvoiceFile.length === 0 ||
-    bankStatementFile.length === 0
-  ) {
-    toast.add({
-      severity: 'error',
-      summary: 'Missing Files',
-      detail: 'Please upload all required files before proceeding.',
-      life: 3000,
-    })
-    return
-  }
 
   enableTab('1')
 }

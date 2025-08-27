@@ -239,15 +239,16 @@ async function onSubmit(data: any) {
       router.push('/admin/dasboard')
     }, 1500)
   } catch (error: any) {
-    console.log(error?.message, ' the error from creating tnxs')
-
+    for (let index = 0; index < error?.response?.data?.message.length; index++) {
+      const message = error?.response?.data?.message[index]
+      toast.add({
+        severity: 'error',
+        summary: 'Error on submitting form',
+        detail: message || 'Try Again Later.',
+        life: 3000,
+      })
+    }
     isLoading.value = false
-    toast.add({
-      severity: 'error',
-      summary: 'Error on submitting form',
-      detail: error?.message || 'Try Again Later.',
-      life: 3000,
-    })
   }
 }
 </script>
