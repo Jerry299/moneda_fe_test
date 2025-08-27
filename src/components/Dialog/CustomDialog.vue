@@ -7,7 +7,9 @@ import ServicesIcon from '../svgs/ServicesIcon.vue'
 import CustomDialogCards from './CustomDialogCards.vue'
 import AppButton from '../AppButton.vue'
 import { useTransactionData } from '@/stores/transactionData'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useTransactionData()
 const props = defineProps<{
   visible: boolean
@@ -15,6 +17,14 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:visible'])
 
+function onDialogVisibilityChange(newVisibility: boolean) {
+  emit('update:visible', newVisibility)
+  setTimeout(() => {
+    if (!newVisibility) {
+      router.push('/admin/dasboard')
+    }
+  }, 300)
+}
 const cardList = [
   {
     title: 'Commodities',
@@ -44,6 +54,7 @@ function selectCard(value: string) {
 }
 
 function onNextClick() {
+  if (selectedCard.value === null) return
   emit('update:visible', false)
 }
 watch(
@@ -57,7 +68,13 @@ watch(
 </script>
 
 <template>
-  <Dialog :visible="visible" modal header="" :style="{ width: '70rem', height: 'auto' }">
+  <Dialog
+    :visible="visible"
+    @update:visible="onDialogVisibilityChange"
+    modal
+    header=""
+    :style="{ width: '70rem', height: 'auto' }"
+  >
     <template #header>
       <div></div>
     </template>
@@ -83,7 +100,7 @@ watch(
           :loading="false"
           variant="orange"
           size="large"
-          :disabled="!selectedCard"
+          :disabled="selectedCard === null"
           @click="onNextClick"
         />
       </div>

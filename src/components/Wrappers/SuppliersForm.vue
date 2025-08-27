@@ -25,6 +25,7 @@ import { zodResolver } from '@primevue/forms/resolvers/zod'
 import { z } from 'zod'
 import { validateFileType } from '@/utils/validateFileType'
 import { createTransactionService } from '@/services/httpServices'
+import { useRouter } from 'vue-router'
 
 const toast = useToast()
 const store = useTransactionData()
@@ -34,7 +35,7 @@ const selectedCompany: numberValueProps = allAwardingCompanies.value.filter(
   (company: any) => company.id === store.awardingCompanyState?.id,
 )[0]
 const prevContracts = ref(store.numberOfPreviousContract.name)
-
+const router = useRouter()
 const selectedIncotermValue = ref(store.incotermsValue.name)
 
 const theSelectedCompany = ref(selectedCompany.name)
@@ -171,7 +172,6 @@ const initialValues = ref({
 
 const resolver = ref(zodResolver(schema))
 async function onSubmit(data: any) {
-  console.log('data here ', data)
   if (Object.keys(data.errors).length > 0) {
     toast.add({
       severity: 'error',
@@ -185,7 +185,7 @@ async function onSubmit(data: any) {
   isLoading.value = true
   const supplier_oem_subcontractors = [
     {
-      soc_name: store.supplierChoice.value,
+      soc_name: store.awardingCompanyState.name,
       country: store.country.value,
       continent: store.continent.value,
       basis_of_selection: store.supplierChoice.value,
@@ -223,13 +223,24 @@ async function onSubmit(data: any) {
   //@ts-ignore
   tnxformData.append('bank_statement', store.bankStatementFile)
   //@ts-ignore
-  tnxformData.append('pro_forma', store.proFormaFile)
+  tnxformData.append(store.awardingCompanyState.name, store.proFormaFile)
 
   try {
     const res = await createTransactionService(tnxformData)
     isLoading.value = false
+
+    toast.add({
+      severity: 'success',
+      summary: 'Form submitted successfully',
+      detail: res?.data?.message,
+      life: 3000,
+    })
+    setTimeout(() => {
+      router.push('/admin/dasboard')
+    }, 1500)
   } catch (error: any) {
     console.log(error?.message, ' the error from creating tnxs')
+
     isLoading.value = false
     toast.add({
       severity: 'error',

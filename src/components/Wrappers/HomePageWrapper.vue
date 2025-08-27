@@ -38,7 +38,6 @@ const state = reactive<{
 })
 
 const fetchData = async () => {
-  console.log('START')
   state.isLoading = true
   try {
     const response = await getDashBoardData()
@@ -101,6 +100,7 @@ onMounted(async () => {
     <div v-if="!state.isLoading" class="flex gap-7 pb-10">
       <DoughnutChart :label="state.chartLabel" :value="state.chartCount" />
       <div class="w-[73%] flex flex-col gap-7">
+        <p class="text-lg font-medium text-left">Transaction By Awarding Companies</p>
         <Blocks
           v-for="block in state.awardingCompany"
           :text="block.awarding_company"
